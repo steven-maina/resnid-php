@@ -16,10 +16,10 @@
 					<ul class="nav navbar-nav navbar-right" style="color: #A9A9A9;">
 						<li><a href="index.php">Home</a></li>
 						<li><a href="property-listing.php">Listings</a></li>
-						<li><a href="property-details.php">Property Details</a></li>
+<!--						<li><a href="property-details.php">Property Details</a></li>-->
 						<li><a href="agents.php">agents</a></li>
-						<li><a href="blog.php">News</a></li>
-						<!-- <li><a href="single.php">Single Post</a></li> -->
+<!--						<li><a href="blog.php">News</a></li>-->
+						 <li><a href="about.php">About Us</a></li>
 						<li><a href="contact.php">contact</a></li>
 						<?php  if(isset($_SESSION['auth_id']))
 										{ ?>
@@ -27,11 +27,11 @@
 											<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Account</a>
 											<ul class="dropdown-menu">
 												<li class="nav-item"> <a class="nav-link" href="profile.php">Profile</a> </li>
-												<li class="nav-item"> <a class="nav-link" href="#">Property Request</a> </li>
-												<li class="nav-item"> <a class="nav-link" href="#">Your Property</a> </li>
-												<!-- <li class="nav-item"> <a class="nav-link" href="feature.php">Your Property</a> </li> -->
-												<li class="nav-item"> <a class="nav-link" href="#" onclick='confirmLogout()'>Logout</a> </li>	
-											</ul>
+												<li class="nav-item"> <a class="nav-link" href="myrequests.php">Property Request</a> </li>
+												<li class="nav-item"> <a class="nav-link" href="myproperty.php">Your Property</a> </li>
+												<li class="nav-item"> <a class="nav-link" href="#" onclick='confirmLogout()'>Logout</a> </li>
+                                            </ul>
+
                                         </li>
 										<?php }?>
 					</ul>

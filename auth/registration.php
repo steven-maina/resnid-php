@@ -184,8 +184,6 @@ if ($op == "save") {
                 <div class="panel-heading">Registration form</div>
         <div class="panel-body">
             <form id="registrationForm" method="POST" action="registration.php">
-
-                <!-- Step 1: Personal Information -->
                 <div id="step1">
                     <h4 class="custom-element"> Personal Information </h4>
                     <div class="row">

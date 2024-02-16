@@ -19,121 +19,7 @@
 	</div>
 </div>
 <!-- Search-Section -->
-<div class="search-section">
-	<div class="container">
-		<form>
-			<div class="select-wrapper select-smaill" id='select-rent'>
-				<p>
-					Rent or Sale
-				</p>
-				<select class='elselect'>
-					<option value="any">any</option>
-					<option value="potato-chips">Rent</option>
-					<option value="chips-and-salsa">Sale</option>
-				</select>
-			</div>
-			<div class="select-wrapper select-big" id='select-property'>
-				<p>
-					Property type
-				</p>
-				<select class='elselect'>
-					<option value="any">any</option>
-					<option value="potato-chips">Potato chips</option>
-					<option value="chips-and-salsa">Chips and salsa</option>
-					<option value="cookies">Cookies</option>
-					<option value="doritos">Doritos</option>
-					<option value="pringles">Pringles</option>
-					<option value="hot-pockets">Hot pockets</option>
-				</select>
-			</div>
-			<div class="select-wrapper select-big">
-				<p>
-					locations
-				</p>
-				<select class='elselect'>
-					<option value="any">any</option>
-					<option value="potato-chips">Potato chips</option>
-					<option value="chips-and-salsa">Chips and salsa</option>
-					<option value="cookies">Cookies</option>
-					<option value="doritos">Doritos</option>
-					<option value="pringles">Pringles</option>
-					<option value="hot-pockets">Hot pockets</option>
-				</select>
-			</div>
-			<div class="select-wrapper select-small">
-				<p>
-					Beds
-				</p>
-				<select class='elselect'>
-					<option value="any">any</option>
-					<option value="potato-chips">Potato chips</option>
-					<option value="chips-and-salsa">Chips and salsa</option>
-					<option value="cookies">Cookies</option>
-					<option value="doritos">Doritos</option>
-					<option value="pringles">Pringles</option>
-					<option value="hot-pockets">Hot pockets</option>
-				</select>
-			</div>
-			<div class="select-wrapper select-small">
-				<p>
-					Baths
-				</p>
-				<select class='elselect'>
-					<option value="any">any</option>
-					<option value="potato-chips">Potato chips</option>
-					<option value="chips-and-salsa">Chips and salsa</option>
-					<option value="cookies">Cookies</option>
-					<option value="doritos">Doritos</option>
-					<option value="pringles">Pringles</option>
-					<option value="hot-pockets">Hot pockets</option>
-				</select>
-			</div>
-			<div class="select-wrapper select-medium">
-				<p>
-					Sq ft
-				</p>
-				<select class='elselect'>
-					<option value="any">any</option>
-					<option value="potato-chips">Potato chips</option>
-					<option value="chips-and-salsa">Chips and salsa</option>
-					<option value="cookies">Cookies</option>
-					<option value="doritos">Doritos</option>
-					<option value="pringles">Pringles</option>
-					<option value="hot-pockets">Hot pockets</option>
-				</select>
-			</div>
-			<div class="select-wrapper select-medium">
-				<p>
-					min price
-				</p>
-				<select class='elselect'>
-					<option value="any">any</option>
-					<option value="potato-chips">Potato chips</option>
-					<option value="chips-and-salsa">Chips and salsa</option>
-					<option value="cookies">Cookies</option>
-					<option value="doritos">Doritos</option>
-					<option value="pringles">Pringles</option>
-					<option value="hot-pockets">Hot pockets</option>
-				</select>
-			</div>
-			<div class="select-wrapper select-medium">
-				<p>
-					Max price
-				</p>
-				<select class='elselect'>
-					<option value="any">any</option>
-					<option value="potato-chips">Potato chips</option>
-					<option value="chips-and-salsa">Chips and salsa</option>
-					<option value="cookies">Cookies</option>
-					<option value="doritos">Doritos</option>
-					<option value="pringles">Pringles</option>
-					<option value="hot-pockets">Hot pockets</option>
-				</select>
-			</div>
-			<input type="submit" value="search" class='yellow-btn'>
-		</form>
-	</div>
-</div>
+<?php include('components/search.php') ?>
 <!-- content-Section -->
 <div class="content-section">
 	<div class="container">
@@ -170,13 +56,11 @@
 						<div class="featured-image">
 							<img src="img/blog/21_blog_1.png" alt="blog">
 						</div>
-						<h2><a href="#">Marketplaces Rails 3 Upgrade - Monday the 10th of December AEDT</a></h2>
+						<h2><a href="#">Marketplaces December AEDT</a></h2>
 						<p class='first-paragraph'>
-							 This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit.
-						</p>
+							</p>
 						<p>
-							 Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo. Nullam ac urna eu felis dapi
-						</p>
+							</p>
 					</div>
 				</div>
 				<div class="comments-section">
@@ -374,26 +258,16 @@
 				<div class="sidebar-widget tags">
 					<h4 class="widget-title">tags</h4>
 					<ul class="tags-wrapper">
-						<li class="single-tag"><a href="#">photography</a></li>
-						<li class="single-tag"><a href="#">logo</a></li>
-						<li class="single-tag"><a href="#">house</a></li>
-						<li class="single-tag"><a href="#">wp</a></li>
-						<li class="single-tag"><a href="#">photography</a></li>
-						<li class="single-tag"><a href="#">photography</a></li>
-						<li class="single-tag"><a href="#">traveling</a></li>
-						<li class="single-tag"><a href="#">sport</a></li>
+
 						<li class="single-tag"><a href="#">business</a></li>
-						<li class="single-tag"><a href="#">racing</a></li>
 					</ul>
 				</div>
 				<div class="sidebar-widget text-widget">
 					<h4 class="widget-title">Text Widget</h4>
 					<p class='first-paragraph'>
-						This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum
-					</p>
+						</p>
 					<p>
-						 auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit
-					</p>
+						</p>
 				</div>
 			</div>
 		</div>

@@ -27,289 +27,63 @@
 				</a>
 			</div>
 			<div class="pull-right breadcrumb">
-				<a href="#">home</a><span class="fa fa-arrow-circle-right sep"></span><a href="#">our agents</a>
+				<a href="#">home</a><span class="fa fa-arrow-circle-right sep"></span><a href="#">Our Agents</a>
 			</div>
 		</div>
 	</div>
 </div>
 <!-- Search-Section -->
-<div class="search-section">
-	<div class="container">
-		<form>
-			<div class="select-wrapper select-smaill" id='select-rent'>
-				<p>
-					Rent or Sale
-				</p>
-				<select class='elselect'>
-					<option value="any">any</option>
-					<option value="potato-chips">Rent</option>
-					<option value="chips-and-salsa">Sale</option>
-				</select>
-			</div>
-			<div class="select-wrapper select-big" id='select-property'>
-				<p>
-					Property type
-				</p>
-				<select class='elselect'>
-					<option value="any">any</option>
-					<option value="potato-chips">Potato chips</option>
-					<option value="chips-and-salsa">Chips and salsa</option>
-					<option value="cookies">Cookies</option>
-					<option value="doritos">Doritos</option>
-					<option value="pringles">Pringles</option>
-					<option value="hot-pockets">Hot pockets</option>
-				</select>
-			</div>
-			<div class="select-wrapper select-big">
-				<p>
-					locations
-				</p>
-				<select class='elselect'>
-					<option value="any">any</option>
-					<option value="potato-chips">Potato chips</option>
-					<option value="chips-and-salsa">Chips and salsa</option>
-					<option value="cookies">Cookies</option>
-					<option value="doritos">Doritos</option>
-					<option value="pringles">Pringles</option>
-					<option value="hot-pockets">Hot pockets</option>
-				</select>
-			</div>
-			<div class="select-wrapper select-small">
-				<p>
-					Beds
-				</p>
-				<select class='elselect'>
-					<option value="any">any</option>
-					<option value="potato-chips">Potato chips</option>
-					<option value="chips-and-salsa">Chips and salsa</option>
-					<option value="cookies">Cookies</option>
-					<option value="doritos">Doritos</option>
-					<option value="pringles">Pringles</option>
-					<option value="hot-pockets">Hot pockets</option>
-				</select>
-			</div>
-			<div class="select-wrapper select-small">
-				<p>
-					Baths
-				</p>
-				<select class='elselect'>
-					<option value="any">any</option>
-					<option value="potato-chips">Potato chips</option>
-					<option value="chips-and-salsa">Chips and salsa</option>
-					<option value="cookies">Cookies</option>
-					<option value="doritos">Doritos</option>
-					<option value="pringles">Pringles</option>
-					<option value="hot-pockets">Hot pockets</option>
-				</select>
-			</div>
-			<div class="select-wrapper select-medium">
-				<p>
-					Sq ft
-				</p>
-				<select class='elselect'>
-					<option value="any">any</option>
-					<option value="potato-chips">Potato chips</option>
-					<option value="chips-and-salsa">Chips and salsa</option>
-					<option value="cookies">Cookies</option>
-					<option value="doritos">Doritos</option>
-					<option value="pringles">Pringles</option>
-					<option value="hot-pockets">Hot pockets</option>
-				</select>
-			</div>
-			<div class="select-wrapper select-medium">
-				<p>
-					min price
-				</p>
-				<select class='elselect'>
-					<option value="any">any</option>
-					<option value="potato-chips">Potato chips</option>
-					<option value="chips-and-salsa">Chips and salsa</option>
-					<option value="cookies">Cookies</option>
-					<option value="doritos">Doritos</option>
-					<option value="pringles">Pringles</option>
-					<option value="hot-pockets">Hot pockets</option>
-				</select>
-			</div>
-			<div class="select-wrapper select-medium">
-				<p>
-					Max price
-				</p>
-				<select class='elselect'>
-					<option value="any">any</option>
-					<option value="potato-chips">Potato chips</option>
-					<option value="chips-and-salsa">Chips and salsa</option>
-					<option value="cookies">Cookies</option>
-					<option value="doritos">Doritos</option>
-					<option value="pringles">Pringles</option>
-					<option value="hot-pockets">Hot pockets</option>
-				</select>
-			</div>
-			<input type="submit" value="search" class='yellow-btn'>
-		</form>
-	</div>
-</div>
+<?php //include('components/search.php') ?>
 <!-- content-Section -->
 <div class="content-section">
-	<div class="container">
-		<!-- single-agent -->
-		<div class="single-agent">
-			<div class="image-box">
-				<img src="img/agents/08_agent-photo1.png" alt="agent">
-				
-			</div>
-			<div class="desc-box">
-				<h4>Robb Hatman</h4>
-				<p class="person-number">
-					<i class="fa fa-phone"></i> 900 123 456 789
-				</p>
-				<p class="person-email">
-					<i class="fa fa-envelope"></i> robbhatman@oresnd.com
-				</p>
-				<p class="person-fax">
-					<i class="fa fa-print"></i> 900 123 456 789
-				</p>
-				<a href="#" class='gray-btn'>view full profile</a>
-			</div>
-		</div>
-		<!-- single-agent -->
-		<div class="single-agent">
-		<div class="image-box">
-				<img src="img/agents//12_agent-photo4.png" alt="agent" >
-			</div>
-
-			<div class="desc-box">
-				<h4>Robb Hatman</h4>
-				<p class="person-number">
-					<i class="fa fa-phone"></i> 900 123 456 789
-				</p>
-				<p class="person-email">
-					<i class="fa fa-envelope"></i> robbhatman@oresnd.com
-				</p>
-				<p class="person-fax">
-					<i class="fa fa-print"></i> 900 123 456 789
-				</p>
-				<a href="#" class='gray-btn'>view full profile</a>
-			</div>
-		</div>
-		<!-- single-agent -->
-		<div class="single-agent">
-			<div class="image-box">
-				<img src="img/agents/12_agent-photo4.png" alt="agent" >
-			</div>
-			<div class="desc-box">
-				<h4>Robb Hatman</h4>
-				<p class="person-number">
-					<i class="fa fa-phone"></i> 900 123 456 789
-				</p>
-				<p class="person-email">
-					<i class="fa fa-envelope"></i> robbhatman@oresnd.com
-				</p>
-				<p class="person-fax">
-					<i class="fa fa-print"></i> 900 123 456 789
-				</p>
-				<a href="#" class='gray-btn'>view full profile</a>
-			</div>
-		</div>
-		<!-- single-agent -->
-		<div class="single-agent">
-			<div class="image-box">
-				<img src="img/agents/12_agent-photo4.png" alt="agent">
-				
-			</div>
-			<div class="desc-box">
-				<h4>Robb Hatman</h4>
-				<p class="person-number">
-					<i class="fa fa-phone"></i> 900 123 456 789
-				</p>
-				<p class="person-email">
-					<i class="fa fa-envelope"></i> robbhatman@oresnd.com
-				</p>
-				<p class="person-fax">
-					<i class="fa fa-print"></i> 900 123 456 789
-				</p>
-				<a href="#" class='gray-btn'>view full profile</a>
-			</div>
-		</div>
-		<!-- single-agent -->
-		<div class="single-agent">
-			<div class="image-box">
-				<img src="img/agents/13_agent-photo5.png" alt="agent">
-				
-			</div>
-			<div class="desc-box">
-				<h4>Robb Hatman</h4>
-				<p class="person-number">
-					<i class="fa fa-phone"></i> 900 123 456 789
-				</p>
-				<p class="person-email">
-					<i class="fa fa-envelope"></i> robbhatman@oresnd.com
-				</p>
-				<p class="person-fax">
-					<i class="fa fa-print"></i> 900 123 456 789
-				</p>
-				<a href="#" class='gray-btn'>view full profile</a>
-			</div>
-		</div>
-		<!-- single-agent -->
-		<div class="single-agent">
-			<div class="image-box">
-				<img src="img/agents/14_agent-photo6.png" alt="agent">
-				
-			</div>
-			<div class="desc-box">
-				<h4>Robb Hatman</h4>
-				<p class="person-number">
-					<i class="fa fa-phone"></i> 900 123 456 789
-				</p>
-				<p class="person-email">
-					<i class="fa fa-envelope"></i> robbhatman@oresnd.com
-				</p>
-				<p class="person-fax">
-					<i class="fa fa-print"></i> 900 123 456 789
-				</p>
-				<a href="#" class='gray-btn'>view full profile</a>
-			</div>
-		</div>
-		<!-- single-agent -->
-		<div class="single-agent">
-			<div class="image-box">
-				<img src="img/agents/15_agent-photo7.png" alt="agent">
-				
-			</div>
-			<div class="desc-box">
-				<h4>Robb Hatman</h4>
-				<p class="person-number">
-					<i class="fa fa-phone"></i> 900 123 456 789
-				</p>
-				<p class="person-email">
-					<i class="fa fa-envelope"></i> robbhatman@oresnd.com
-				</p>
-				<p class="person-fax">
-					<i class="fa fa-print"></i> 900 123 456 789
-				</p>
-				<a href="#" class='gray-btn'>view full profile</a>
-			</div>
-		</div>
-		<!-- single-agent -->
-		<div class="single-agent">
-			<div class="image-box">
-				<img src="img/agents/16_agent-photo8.png" alt="agent">
-				
-			</div>
-			<div class="desc-box">
-				<h4>Robb Hatman</h4>
-				<p class="person-number">
-					<i class="fa fa-phone"></i> 900 123 456 789
-				</p>
-				<p class="person-email">
-					<i class="fa fa-envelope"></i> robbhatman@oresnd.com
-				</p>
-				<p class="person-fax">
-					<i class="fa fa-print"></i> 900 123 456 789
-				</p>
-				<a href="#" class='gray-btn'>view full profile</a>
-			</div>
-		</div>
+	<div class="row">
+        <?php
+        include('auth/database.php');
+        $agentQuery = "SELECT * FROM agent WHERE status='active'";
+        $agentResult = mysqli_query($link, $agentQuery);
+        while ($agent = mysqli_fetch_assoc($agentResult)) {
+            ?>
+        <div class="col-md-4 mb-4"  style="margin-bottom: 20px">
+            <div class="single-agent">
+                <div class="image-box">
+                    <?php
+                    $imagePath = "admin/user/" . $agent['image'];
+                    $fallbackImage = "admin/user/avatar-3.jpg";
+                    if (file_exists($imagePath) && is_file($imagePath)) {
+                        $imageUrl = $imagePath;
+                    } else {
+                        $imageUrl = $fallbackImage;
+                    }
+                    ?>
+                    <a href="#" class="image-popup img-fluid" data-image="<?php echo $imageUrl; ?>" data-title="<?php echo $agent['agent_name']; ?>">
+                        <img src="<?php echo $imageUrl; ?>" alt="<?php echo $agent['agent_name']; ?>">
+                    </a>
+                    <!--                        <img src="img/agents/istockphoto-862596588-612x612.jpg" alt="--><?php //echo $agent['agent_name']; ?><!--">-->
+                    <ul class="social-icons">
+                    </ul>
+                </div>
+                <div class="desc-box">
+                    <h4><?php echo $agent['agent_name']; ?></h4>
+                    <p class="person-number">
+                        <i class="fa fa-phone"></i> <?php echo $agent['agent_contact']; ?>
+                    </p>
+                    <p class="person-email">
+                        <i class="fa fa-envelope"></i> <?php echo $agent['agent_email']; ?>
+                    </p>
+                    <!--                        <p class="person-fax">-->
+                    <!--                            <i class="fa fa-print"></i> --><?php //echo $agent['agent_contact']; ?>
+                    <!--                        </p>-->
+                    <p class="person-map">
+                        <i class="fa fa-map-marker"></i> <?php echo $agent['agent_address'];?>
+                    </p>
+                    <a href="#" class='gray-btn'>profile</a>
+                </div>
+            </div>
+        </div>
+            <?php
+        }
+        mysqli_close($link);
+        ?>
 	</div>
 </div>
 <!-- footer-section -->

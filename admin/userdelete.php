@@ -5,16 +5,16 @@ $uid = $_GET['id'];
 // view code//
 $sql = "UPDATE users SET deleted_at = NOW() , status='inactive' WHERE id = {$uid}";
 $result = mysqli_query($con, $sql);
-while($row = mysqli_fetch_array($result))
-	{
-	  $img=$row["uimage"];
-	}
-@unlink('user/'.$img);
+if ($result) {
+	$img = '';
+} else {
+	echo "Error: " . mysqli_error($con);
+}
 
 //end view code
-$msg="";
-$sql = "DELETE FROM user WHERE uid = {$uid}";
-$result = mysqli_query($con, $sql);
+//$msg="";
+//$sql = "DELETE FROM users WHERE uid = {$uid}";
+//$result = mysqli_query($con, $sql);
 if($result == true)
 {
 	$msg="<p class='alert alert-success'>User Deleted</p>";

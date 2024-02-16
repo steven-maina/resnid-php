@@ -60,7 +60,7 @@ if(isset($_POST['insert']))
 	{
 		
 		$sql="INSERT INTO feedback (uid,fdescription,status) VALUES ('$uid','$content','0')";
-		   $result=mysqli_query($con, $sql);
+		   $result=mysqli_query($link, $sql);
 		   if($result){
 			   $msg = "<p class='alert alert-success'>Feedback Send Successfully</p> ";
 		   }

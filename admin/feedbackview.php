@@ -100,7 +100,7 @@ if(!isset($_SESSION['auth_role']))
                                             <tbody>
 											<?php
 													
-												$query=mysqli_query($con,"select feedback.*, user.* from feedback,user where feedback.uid=user.uid");
+												$query=mysqli_query($con,"select feedback.*, users.* from feedback,users where feedback.uid=users.id");
 												$cnt=1;
 												while($row=mysqli_fetch_array($query))
 													{

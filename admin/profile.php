@@ -5,7 +5,7 @@ require("config.php");
 include "../classes/UserManager.php";
 if(!isset($_SESSION['auth_id']))
 {
-	header("location: ../auth/login.php");
+    header("location: ../auth/login.php");
 }
 ?>
 <!DOCTYPE html>

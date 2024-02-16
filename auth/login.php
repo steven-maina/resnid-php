@@ -114,6 +114,9 @@
 								</form>
 								
 								<div class="text-center dont-have">Don't have an account? <a href="registration.php">Register </a> As a Client Or Agent</div>
+
+                                <br/>
+                                <a href="../index.php" class="btn-sm btn-secondary">Home Page</a>
 								
 							</div>
                         </div>

@@ -1,16 +1,12 @@
 <?php
-session_start();
+//session_start();
 require("config.php");
 ////code
  
-if(!isset($_SESSION['auth_role']))
-{
-	header("location: ../auth/login.php");
-}
-
-
-//// code insert
-//// add code
+//if(!isset($_SESSION['auth_role']))
+//{
+//	header("location: ../auth/login.php");
+//}
 $error="";
 $msg="";
 if(isset($_POST['add']))
@@ -28,13 +24,15 @@ if(isset($_POST['add']))
 	$kitc=$_POST['kitc'];
 	$floor=$_POST['floor'];
 	$price=$_POST['price'];
-	$city=$_POST['city'];
+	$city=$_POST['state'];
 	$asize=$_POST['asize'];
 	$loc=$_POST['loc'];
 	$state=$_POST['state'];
 	$status=$_POST['status'];
 	$uid=$_POST['uid'];
-	$feature=$_POST['feature'];
+	$lat=$_POST['latitude'];
+	$long=$_POST['longitude'];
+//	$feature=$_POST['feature'];
 	
 	$totalfloor=$_POST['totalfl'];
 	
@@ -67,15 +65,75 @@ if(isset($_POST['add']))
 	move_uploaded_file($temp_name5,"property/$fimage");
 	move_uploaded_file($temp_name6,"property/$fimage1");
 	move_uploaded_file($temp_name7,"property/$fimage2");
+
+    $sql0 = "INSERT INTO property_features (
+    property_age, 
+    swimming_pool, 
+    parking, 
+    gym, 
+    type, 
+    security, 
+    dining_capacity, 
+    temple, 
+    third_party, 
+    elevator, 
+    cctv, 
+    water_supply, 
+    ceiling_fan, 
+    curtains_drapes, 
+    oven_range, 
+    chandeliers, 
+    freezer, 
+    refrigerator, 
+    convection_oven, 
+    light_fixtures, 
+    screens, 
+    air_conditioning, 
+    hotwater
+) VALUES (
+    '".(isset($_POST['property_age']) ? $_POST['property_age'] : '')."', 
+    '".(isset($_POST['swimming_pool']) ? $_POST['swimming_pool'] : '')."', 
+    '".(isset($_POST['parking']) ? $_POST['parking'] : '')."', 
+    '".(isset($_POST['gym']) ? $_POST['gym'] : '')."', 
+    '".(isset($_POST['type']) ? $_POST['type'] : '')."', 
+    '".(isset($_POST['security']) ? $_POST['security'] : '')."', 
+    '".(isset($_POST['dining_capacity']) ? $_POST['dining_capacity'] : '')."', 
+    '".(isset($_POST['temple']) ? $_POST['temple'] : '')."', 
+    '".(isset($_POST['third_party']) ? $_POST['third_party'] : '')."', 
+    '".(isset($_POST['elevator']) ? $_POST['elevator'] : '')."', 
+    '".(isset($_POST['cctv']) ? $_POST['cctv'] : '')."', 
+    '".(isset($_POST['water_supply']) ? $_POST['water_supply'] : '')."', 
+    '".(isset($_POST['ceiling_fan']) ? $_POST['ceiling_fan'] : '')."', 
+    '".(isset($_POST['curtains_drapes']) ? $_POST['curtains_drapes'] : '')."', 
+    '".(isset($_POST['oven_range']) ? $_POST['oven_range'] : '')."', 
+    '".(isset($_POST['chandeliers']) ? $_POST['chandeliers'] : '')."', 
+    '".(isset($_POST['freezer']) ? $_POST['freezer'] : '')."', 
+    '".(isset($_POST['refrigerator']) ? $_POST['refrigerator'] : '')."', 
+    '".(isset($_POST['convection_oven']) ? $_POST['convection_oven'] : '')."', 
+    '".(isset($_POST['light_fixtures']) ? $_POST['light_fixtures'] : '')."', 
+    '".(isset($_POST['screens']) ? $_POST['screens'] : '')."', 
+    '".(isset($_POST['air_conditioning']) ? $_POST['air_conditioning'] : '')."', 
+    '".(isset($_POST['hotwater']) ? $_POST['hotwater'] : '')."'
+)";
+
+    if(mysqli_query($con, $sql0)) {
+       $pf=mysqli_insert_id($con);
+    } else {
+        $error = "Error: " . mysqli_error($con);
+    }
 	
-	$sql="insert into property (title,pcontent,type,bhk,stype,bedroom,bathroom,balcony,kitchen,hall,floor,size,price,location,city,state,feature,pimage,pimage1,pimage2,pimage3,pimage4,uid,status,mapimage,topmapimage,groundmapimage,totalfloor)
+	$sql="insert into property (title,pcontent,type,bhk,stype,bedroom,bathroom,balcony,kitchen,hall,floor,size,price,location,city,state,latitude, longitude,feature,pimage,pimage1,pimage2,pimage3,pimage4,uid,status,mapimage,topmapimage,groundmapimage,totalfloor)
 	values('$title','$content','$ptype','$bhk','$stype','$bed','$bath','$balc','$kitc','$hall','$floor','$asize','$price',
-	'$loc','$city','$state','$feature','$aimage','$aimage1','$aimage2','$aimage3','$aimage4','$uid','$status','$fimage','$fimage1','$fimage2','$totalfloor')";
+	'$loc','$city','$state','$lat','$long','$pf','$aimage','$aimage1','$aimage2','$aimage3','$aimage4','$uid','$status','$fimage','$fimage1','$fimage2','$totalfloor')";
 	$result=mysqli_query($con,$sql);
+    $pid=mysqli_insert_id($con);
 	if($result)
 		{
-			$msg="<p class='alert alert-success'>Property Inserted Successfully</p>";
-					
+            $sql2="insert into agent_properties (agent_id,property_id) values ('$uid','$pid')";
+            $result2=mysqli_query($con, $sql2);
+            $updateQuery = "UPDATE property_features SET property_id = '$pid' WHERE id = '$pf'";
+            $updateResult = mysqli_query($con, $updateQuery);
+            $msg="<p class='alert alert-success'>Property Inserted Successfully</p>";
 		}
 		else
 		{
@@ -129,7 +187,7 @@ if(isset($_POST['add']))
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
 									<li class="breadcrumb-item active">Property</li>
-								</ul>
+
 							</div>
 						</div>
 					</div>
@@ -253,6 +311,11 @@ if(isset($_POST['add']))
 															<option value="3rd Floor">3rd Floor</option>
 															<option value="4th Floor">4th Floor</option>
 															<option value="5th Floor">5th Floor</option>
+															<option value="6th Floor">6th Floor</option>
+															<option value="7th Floor">7th Floor</option>
+															<option value="8th Floor">8th Floor</option>
+															<option value="9th Floor">9th Floor</option>
+															<option value="10th Floor">10th Floor</option>
 														</select>
 													</div>
 												</div>
@@ -263,17 +326,51 @@ if(isset($_POST['add']))
 													</div>
 												</div>
 												<div class="form-group row">
-													<label class="col-lg-3 col-form-label">City</label>
-													<div class="col-lg-9">
-														<input type="text" class="form-control" name="city" required placeholder="Enter City">
-													</div>
-												</div>
-												<div class="form-group row">
 													<label class="col-lg-3 col-form-label">State</label>
 													<div class="col-lg-9">
-														<input type="text" class="form-control" name="state" required placeholder="Enter State">
-													</div>
+                                                        <select class="form-control" name="state"  onchange="updateHiddenInput()" required placeholder="Enter State">
+                                                            <option disabled selected>--Select State--</option>
+                                                            <option value="Abia">Abia</option>
+                                                            <option value="Adamawa">Adamawa</option>
+                                                            <option value="Akwa Ibom">Akwa Ibom</option>
+                                                            <option value="Anambra">Anambra</option>
+                                                            <option value="Bauchi">Bauchi</option>
+                                                            <option value="Bayelsa">Bayelsa</option>
+                                                            <option value="Benue">Benue</option>
+                                                            <option value="Borno">Borno</option>
+                                                            <option value="Cross River">Cross River</option>
+                                                            <option value="Delta">Delta</option>
+                                                            <option value="Ebonyi">Ebonyi</option>
+                                                            <option value="Edo">Edo</option>
+                                                            <option value="Ekiti">Ekiti</option>
+                                                            <option value="Enugu">Enugu</option>
+                                                            <option value="FCT">Federal Capital Territory</option>
+                                                            <option value="Gombe">Gombe</option>
+                                                            <option value="Imo">Imo</option>
+                                                            <option value="Jigawa">Jigawa</option>
+                                                            <option value="Kaduna">Kaduna</option>
+                                                            <option value="Kano">Kano</option>
+                                                            <option value="Katsina">Katsina</option>
+                                                            <option value="Kebbi">Kebbi</option>
+                                                            <option value="Kogi">Kogi</option>
+                                                            <option value="Kwara">Kwara</option>
+                                                            <option value="Lagos">Lagos</option>
+                                                            <option value="Nasarawa">Nasarawa</option>
+                                                            <option value="Niger">Niger</option>
+                                                            <option value="Ogun">Ogun</option>
+                                                            <option value="Ondo">Ondo</option>
+                                                            <option value="Osun">Osun</option>
+                                                            <option value="Oyo">Oyo</option>
+                                                            <option value="Plateau">Plateau</option>
+                                                            <option value="Rivers">Rivers</option>
+                                                            <option value="Sokoto">Sokoto</option>
+                                                            <option value="Taraba">Taraba</option>
+                                                            <option value="Yobe">Yobe</option>
+                                                            <option value="Zamfara">Zamfara</option>
+                                                        </select>
+                                                    </div>
 												</div>
+                                                <input type="hidden" class="form-control" name="city" id="cityInput" value="">
 											</div>
 											<div class="col-xl-6">
 												<div class="form-group row">
@@ -318,42 +415,194 @@ if(isset($_POST['add']))
 										<div class="form-group row">
 											<label class="col-lg-2 col-form-label">Feature</label>
 											<div class="col-lg-9">
-											<p class="alert alert-danger">* Important Please Do Not Remove Below Content Only Change <b>Yes</b> Or <b>No</b> or Details and Do Not Add More Details</p>
-											
-											<textarea class="tinymce form-control" name="feature" rows="10" cols="30">
-												<!---feature area start--->
-												<div class="col-md-4">
-														<ul>
-														<li class="mb-3"><span class="text-secondary font-weight-bold">Property Age : </span>10 Years</li>
-														<li class="mb-3"><span class="text-secondary font-weight-bold">Swiming Pool : </span>Yes</li>
-														<li class="mb-3"><span class="text-secondary font-weight-bold">Parking : </span>Yes</li>
-														<li class="mb-3"><span class="text-secondary font-weight-bold">GYM : </span>Yes</li>
-														</ul>
-													</div>
-													<div class="col-md-4">
-														<ul>
-														<li class="mb-3"><span class="text-secondary font-weight-bold">Type : </span>Appartment</li>
-														<li class="mb-3"><span class="text-secondary font-weight-bold">Security : </span>Yes</li>
-														<li class="mb-3"><span class="text-secondary font-weight-bold">Dining Capacity : </span>10 People</li>
-														<li class="mb-3"><span class="text-secondary font-weight-bold">Temple  : </span>Yes</li>
-														
-														</ul>
-													</div>
-													<div class="col-md-4">
-														<ul>
-														<li class="mb-3"><span class="text-secondary font-weight-bold">3rd Party : </span>No</li>
-														<li class="mb-3"><span class="text-secondary font-weight-bold">Alivator : </span>Yes</li>
-														<li class="mb-3"><span class="text-secondary font-weight-bold">CCTV : </span>Yes</li>
-														<li class="mb-3"><span class="text-secondary font-weight-bold">Water Supply : </span>Ground Water / Tank</li>
-														</ul>
-													</div>
-												<!---feature area end---->
-											</textarea>
-											</div>
-										</div>
-												
-										<h4 class="card-title">Image & Status</h4>
+                                                <p class="alert alert-info">* Check  <b>Yes</b> Or <b>No</b> or To show the feature exists Details </p>
+<!--                                                <textarea class="tinymce form-control" name="feature" rows="10" cols="30">-->
+<!--												<--feature area start--->
+<!--												<div class="col-md-4">-->
+<!--														<ul>-->
+<!--														<li class="mb-3"><span class="text-secondary font-weight-bold">Property Age : </span>10 Years</li>-->
+<!--														<li class="mb-3"><span class="text-secondary font-weight-bold">Swiming Pool : </span>Yes</li>-->
+<!--														<li class="mb-3"><span class="text-secondary font-weight-bold">Parking : </span>Yes</li>-->
+<!--														<li class="mb-3"><span class="text-secondary font-weight-bold">GYM : </span>Yes</li>-->
+<!--														</ul>-->
+<!--													</div>-->
+<!--													<div class="col-md-4">-->
+<!--														<ul>-->
+<!--														<li class="mb-3"><span class="text-secondary font-weight-bold">Type : </span>Appartment</li>-->
+<!--														<li class="mb-3"><span class="text-secondary font-weight-bold">Security : </span>Yes</li>-->
+<!--														<li class="mb-3"><span class="text-secondary font-weight-bold">Dining Capacity : </span>10 People</li>-->
+<!--														<li class="mb-3"><span class="text-secondary font-weight-bold">Temple  : </span>Yes</li>-->
+<!---->
+<!--														</ul>-->
+<!--													</div>-->
+<!--													<div class="col-md-4">-->
+<!--														<ul>-->
+<!--														<li class="mb-3"><span class="text-secondary font-weight-bold">3rd Party : </span>No</li>-->
+<!--														<li class="mb-3"><span class="text-secondary font-weight-bold">Alivator : </span>Yes</li>-->
+<!--														<li class="mb-3"><span class="text-secondary font-weight-bold">CCTV : </span>Yes</li>-->
+<!--														<li class="mb-3"><span class="text-secondary font-weight-bold">Water Supply : </span>Ground Water / Tank</li>-->
+<!--														</ul>-->
+<!--													</div>-->
+<!--												<--feature area end-->
+<!--											</textarea>-->
+<!--                                                <div class="row">-->
+<!--                                                    <div class="col-md-4">-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="property_age" value="10_years">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Property Age : </span>10 Years-->
+<!--                                                        </div>-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="swimming_pool" value="yes">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Swimming Pool : </span>Yes-->
+<!--                                                        </div>-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="parking" value="yes">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Parking : </span>Yes-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-md-4">-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="gym" value="yes">-->
+<!--                                                            <span class="text-secondary font-weight-bold">GYM : </span>Yes-->
+<!--                                                        </div>-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="type" value="apartment">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Type : </span>Apartment-->
+<!--                                                        </div>-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="security" value="yes">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Security : </span>Yes-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-md-4">-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="dining_capacity" value="10_people">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Dining Capacity : </span>10 People-->
+<!--                                                        </div>-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="temple" value="yes">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Temple : </span>Yes-->
+<!--                                                        </div>-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="third_party" value="no">-->
+<!--                                                            <span class="text-secondary font-weight-bold">3rd Party : </span>No-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-md-4">-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="elevator" value="yes">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Elevator : </span>Yes-->
+<!--                                                        </div>-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="cctv" value="yes">-->
+<!--                                                            <span class="text-secondary font-weight-bold">CCTV : </span>Yes-->
+<!--                                                        </div>-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="water_supply" value="ground_water_tank">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Water Supply : </span>Ground Water / Tank-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-md-4">-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="ceiling_fan">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Ceiling Fan</span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="curtains_drapes">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Curtains/Drapes</span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="oven_range">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Oven/Range</span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="chandeliers">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Chandelier(s)</span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="freezer">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Freezer</span>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-md-4">-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="refrigerator">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Refrigerator</span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="convection_oven">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Convection Oven</span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="light_fixtures">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Light Fixtures</span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="screens">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Screens</span>-->
+<!--                                                        </div>-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="air_conditioning">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Air Conditioning</span>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-md-4">-->
+<!--                                                        <div class="mb-3">-->
+<!--                                                            <input type="checkbox" name="hotwater">-->
+<!--                                                            <span class="text-secondary font-weight-bold">Hotwater</span>-->
+<!--                                                        </div>-->
+<!--                                                </div>-->
+<!---->
+<!--                                            </div>-->
+
+                                                <div class="row">
+                                                    <?php
+                                                    $features_data = array(
+                                                        'Property Age' => array('name' => 'property_age', 'value' => '10_years'),
+                                                        'Swimming Pool' => array('name' => 'swimming_pool', 'value' => 'yes'),
+                                                        'Parking' => array('name' => 'parking', 'value' => 'yes'),
+                                                        'GYM' => array('name' => 'gym', 'value' => 'yes'),
+                                                        'Type' => array('name' => 'type', 'value' => 'apartment'),
+                                                        'Security' => array('name' => 'security', 'value' => 'yes'),
+                                                        'Dining Capacity' => array('name' => 'dining_capacity', 'value' => '10_people'),
+                                                        'Temple' => array('name' => 'temple', 'value' => 'yes'),
+                                                        '3rd Party' => array('name' => 'third_party', 'value' => 'no'),
+                                                        'Elevator' => array('name' => 'elevator', 'value' => 'yes'),
+                                                        'CCTV' => array('name' => 'cctv', 'value' => 'yes'),
+                                                        'Water Supply' => array('name' => 'water_supply', 'value' => 'ground_water_tank'),
+                                                        'Ceiling Fan' => array('name' => 'ceiling_fan'),
+                                                        'Curtains/Drapes' => array('name' => 'curtains_drapes'),
+                                                        'Oven/Range' => array('name' => 'oven_range'),
+                                                        'Chandelier(s)' => array('name' => 'chandeliers'),
+                                                        'Freezer' => array('name' => 'freezer'),
+                                                        'Refrigerator' => array('name' => 'refrigerator'),
+                                                        'Convection Oven' => array('name' => 'convection_oven'),
+                                                        'Light Fixtures' => array('name' => 'light_fixtures'),
+                                                        'Screens' => array('name' => 'screens'),
+                                                        'Air Conditioning' => array('name' => 'air_conditioning'),
+                                                        'Hotwater' => array('name' => 'hotwater'),
+                                                    );
+
+                                                    foreach ($features_data as $label => $feature) {
+                                                        $checked = isset($property_features[$feature['name']]) && $property_features[$feature['name']] === 'yes' ? 'checked' : '';
+                                                        ?>
+                                                        <div class="col-md-4">
+                                                            <div class="mb-3">
+                                                                <input type="checkbox" name="<?php echo $feature['name']; ?>" value="<?php echo $feature['value'] ?? 'yes'; ?>" <?php echo $checked; ?>>
+                                                                <span class="text-secondary font-weight-bold"><?php echo $label; ?> : </span><?php echo $feature['value'] ?? ''; ?>
+                                                            </div>
+                                                        </div>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    <h4 class="card-title">Image & Status</h4>
 										<div class="row">
+
 											<div class="col-xl-6">
 												
 												<div class="form-group row">
@@ -406,12 +655,6 @@ if(isset($_POST['add']))
 													</div>
 												</div>
 												<div class="form-group row">
-													<label class="col-lg-3 col-form-label">Uid</label>
-													<div class="col-lg-9">
-														<input type="text" class="form-control" name="uid" required placeholder="Enter User Id (only number)">
-													</div>
-												</div>
-												<div class="form-group row">
 													<label class="col-lg-3 col-form-label">Floor Plan Image</label>
 													<div class="col-lg-9">
 														<input class="form-control" name="fimage" type="file">
@@ -423,11 +666,50 @@ if(isset($_POST['add']))
 														<input class="form-control" name="fimage2" type="file">
 													</div>
 												</div>
-											</div>
-										</div>
 
-										
-											<input type="submit" value="Submit" class="btn btn-primary"name="add" style="margin-left:200px;">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-3 col-form-label">Property Agent</label>
+                                                    <div class="col-lg-9">
+                                                        <?php
+                                                        $query = mysqli_query($con, "select * from agent where status='active' AND deleted_at IS NULL");
+                                                        $cnt = 1;
+                                                        ?>
+                                                        <select class="form-control" required name="uid" placeholder="Select the Agent User">
+                                                            <option value="">Select Agent</option>
+                                                            <?php
+                                                            while ($row = mysqli_fetch_row($query)) {
+                                                                ?>
+                                                                <option value="<?php echo $row['0']; ?>"><?php echo $row['2']; ?></option>
+                                                                <?php
+                                                                $cnt = $cnt + 1;
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+                                                <H4>Geo Location</H4>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-3 col-form-label">Latitude</label>
+                                                    <div class="col-lg-9">
+                                                        <input class="form-control" name="latitude" type="text" id="latitudeInput" placeholder="Enter latitude">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-3 col-form-label">Longitude</label>
+                                                    <div class="col-lg-9">
+                                                        <input class="form-control" name="longitude" type="text" id="longitudeInput" placeholder="Enter longitude">
+                                                    </div>
+                                                </div>
+                                                <button type="button" onclick="getCurrentLocation()">Use Current Location</button>
+
+
+                                            </div>
+
+										</div>
+                                        </div>
+											<input type="submit" value="Submit" class="btn btn-primary" name="add" style="margin-left:200px;">
 										
 								</div>
 								</form>
@@ -453,7 +735,34 @@ if(isset($_POST['add']))
 		
 		<!-- Custom JS -->
 		<script  src="assets/js/script.js"></script>
-		
+            <script>
+                function updateHiddenInput() {
+                    // Get the selected value from the "state" dropdown
+                    var selectedState = document.getElementById("state").value;
+
+                    // Set the value of the hidden input to the selected state
+                    document.getElementById("cityInput").value = selectedState;
+                }
+            </script>
+            <script>
+                function getCurrentLocation() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(
+                            function(position) {
+                                // Update the input fields with the obtained coordinates
+                                document.getElementById('latitudeInput').value = position.coords.latitude;
+                                document.getElementById('longitudeInput').value = position.coords.longitude;
+                            },
+                            function(error) {
+                                console.error("Error getting current location:", error.message);
+                                alert("Error getting current location. Please enter manually.");
+                            }
+                        );
+                    } else {
+                        alert("Geolocation is not supported by your browser. Please enter manually.");
+                    }
+                }
+            </script>
     </body>
 
 </html>

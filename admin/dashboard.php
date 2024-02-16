@@ -9,8 +9,6 @@ if(!isset($_SESSION['auth_id']))
 }
 
 $query = mysqli_query($con, "SELECT role, COUNT(*) AS user_count FROM users GROUP BY role");
-
-
 if ($query) {
     $adminCount = $agentCount = $clientCount = 0;
 
@@ -48,6 +46,30 @@ if ($query) {
 		$propertyCount = $row['property_count'];
 	}
 }
+
+    $userId = $_SESSION['auth_id'];
+if(isset($_SESSION['auth_role'])=='admin'){
+        $query2 = "SELECT SUM(amount) AS totalAmount FROM payments";
+       } else{
+        $agentQuery = "SELECT property_id FROM agent_properties WHERE agent_id = $userId";
+        $agentResult = mysqli_query($con, $agentQuery);
+        if($agentResult) {
+            $row = mysqli_fetch_assoc($agentResult);
+            $propertyId = $row['property_id'];
+            $query2 = "SELECT SUM(amount) AS totalAmount FROM payments WHERE property_id = $propertyId";
+        } else {
+            echo "Error retrieving agent's property_id";
+        }
+    }
+    $result2 = mysqli_query($con, $query2);
+
+    if($result2) {
+        $row = mysqli_fetch_assoc($result2);
+        $paymentsSum = $row['totalAmount'];
+    } else {
+        echo "Error executing query";
+    }
+
 
 // Close the connection if needed
 mysqli_close($con);
@@ -214,7 +236,7 @@ mysqli_close($con);
 										</div>
 										<div class="dash-widget-info">
 											
-										<h3>0.00</h3>
+										<h3><?php echo $paymentsSum; ?></h3>
 											
 											<h6 class="text-muted">Total Sales</h6>
 											<!-- <div class="progress progress-sm">
@@ -248,35 +270,37 @@ mysqli_close($con);
 
 					<div class="row">
 						<div class="col-md-12 col-lg-6">
-						
-							<!-- Sales Chart -->
-							<div class="card card-chart">
-								<div class="card-header">
-									<h4 class="card-title">Sales Overview</h4>
-								</div>
-								<div class="card-body">
-									<div id="morrisArea"></div>
-								</div>
-							</div>
-							<!-- /Sales Chart -->
-							
-						</div>
-						<div class="col-md-12 col-lg-6">
-						
-							<!-- Invoice Chart -->
-							<div class="card card-chart">
-								<div class="card-header">
-									<h4 class="card-title">Order Status</h4>
-								</div>
-								<div class="card-body">
-									<div id="morrisLine"></div>
-								</div>
-							</div>
-							<!-- /Invoice Chart -->
-							
-						</div>	
-					</div>
-				</div>			
+                            <div class="card card-chart">
+                                <div class="card-header">
+                                    <h4 class="card-title">Sales Overview</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div id="morrisLinePayments"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card card-chart" style="width: 50%; float: left;">
+                            <div class="card-header">
+                                <h4 class="card-title">Buyer Registration</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="morrisLine"></div>
+                            </div>
+                        </div>
+
+                        <style>
+                            #morrisLine {
+                                height: 300px;
+                                margin: 0 auto;
+                            }
+
+                            .card-body {
+                                overflow: hidden;
+                            }
+                        </style>
+                        </div>
+                    </div>
 			</div>
 			<!-- /Page Wrapper -->
 		
@@ -299,7 +323,135 @@ mysqli_close($con);
 		
 		<!-- Custom JS -->
 		<script  src="assets/js/script.js"></script>
-		
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+        <!-- Include Morris.js -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+        <?php
+        require("config.php");
+
+        $query = "SELECT MONTH(created_at) AS month, COUNT(*) AS total_registered
+          FROM users
+          WHERE role = 'client' AND YEAR(created_at) = YEAR(NOW())
+          GROUP BY MONTH(created_at)";
+
+        $result = mysqli_query($con, $query);
+
+        if (!$result) {
+            // Handle database query error
+            die("Database query failed: " . mysqli_error($con));
+        }
+        $data = array_fill(1, 12, array("month" => "", "registered" => 0));
+
+        // Fill the array with actual data
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[$row['month']] = array(
+                "month" => date("F", mktime(0, 0, 0, $row['month'], 1)),
+                "registered" => $row['total_registered']
+            );
+        }
+
+        // Convert the associative array to indexed array
+        $data = array_values($data);
+        ?>
+        <style>
+            #morrisLine {
+                height: 300px;
+                margin: 0 auto;
+            }
+
+            .card-body {
+                overflow: hidden;
+            }
+        </style>
+
+        <script>
+            new Morris.Line({
+                element: 'morrisLine',
+                data: <?php echo json_encode($data); ?>,
+                xkey: 'month',
+                ykeys: ['registered'],
+                labels: ['Registered'],
+                parseTime: false,
+                lineColors: ['#3498db'],
+                lineWidth: 2,
+                pointSize: 4,
+                hideHover: 'auto',
+                yLabelFormat: function(y) {
+                    return Math.round(y);
+                },
+                yLabels: 'count'
+            });
+        </script>
+
+
+        <?php
+        require("config.php");
+
+        $query = "SELECT MONTH(created_at) AS month, SUM(amount) AS total_payments
+          FROM payments
+          WHERE approved_by_buyer = 'yes' AND approved_by_seller='yes' AND MONTH(created_at) = MONTH(NOW()) AND YEAR(created_at) = YEAR(NOW())
+          GROUP BY MONTH(created_at)";
+
+        $result = mysqli_query($con, $query);
+
+        if (!$result) {
+            // Handle database query error
+            die("Database query failed: " . mysqli_error($con));
+        }
+
+        $data_payments = array();
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data_payments[] = array(
+                "month" => date("F", mktime(0, 0, 0, $row['month'], 1)),
+                "total_payments" => $row['total_payments']
+            );
+        }
+        ?>
+        <script>
+            // Dummy data representing all months with zero payments
+            var allMonthsData = [
+                <?php
+                $months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+
+                foreach ($months as $month) {
+                    echo "{ month: '$month', total_payments: 0 },";
+                }
+                ?>
+            ];
+
+            // Update the amounts based on actual payment data
+            <?php
+            foreach ($data_payments as $payment) {
+                $monthIndex = array_search($payment['month'], $months);
+                $allMonthsData[$monthIndex]['total_payments'] = $payment['total_payments'];
+            }
+            ?>
+
+            // Morris.js initialization for payments with Line chart
+            new Morris.Line({
+                element: 'morrisLinePayments',
+                data: allMonthsData,
+                xkey: 'month',
+                ykeys: ['total_payments'],
+                labels: ['Total Payments'],
+                parseTime: false,
+                lineColors: ['#4caf50'],
+                lineWidth: 2,
+                pointSize: 4,
+                hideHover: 'auto',
+                yLabelFormat: function(y) {
+                    return Math.round(y); // Format y-axis labels as whole numbers
+                },
+                yLabels: 'count' // Explicitly specify y-axis labels
+            });
+        </script>
+
+
     </body>
 
 </html>

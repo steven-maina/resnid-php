@@ -8,7 +8,7 @@ if(!isset($_SESSION['auser']))
 	header("location: ../auth/login.php");
 }
 ?>  
-  <div class="header">
+  <div class="header" style="background: #437dd0 ; color: #1c1c1c">
 			
 				<!-- Logo -->
                 <div class="header-left">
@@ -24,9 +24,6 @@ if(!isset($_SESSION['auser']))
 				<a href="javascript:void(0);" id="toggle_btn">
 					<i class="fe fe-text-align-left"></i>
 				</a>
-				
-
-				
 				<!-- Mobile Menu Toggle -->
 				<a class="mobile_btn" id="mobile_btn">
 					<i class="fa fa-bars"></i>
@@ -90,8 +87,12 @@ if(!isset($_SESSION['auser']))
 								<ul style="display: none;">
 									<li><a href="adminlist.php"> Admin </a></li>
 									<li><a href="userlist.php"> Users </a></li>
-									<li><a href="useragent.php"> Agent </a></li>
-									<!-- <li><a href="userbuilder.php"> Builder </a></li> -->
+									<li><a href="useragent.php">Agent </a></li>
+                                    <?php
+                                    if (isset($_SESSION['auth_role']) && $_SESSION['auth_role'] === 'admin') {
+                                        ?>
+									 <li><a href="adduser.php"> Add User </a></li>
+                                      <?php } ?>
 								</ul>
 							</li>
 							<?php }?>
@@ -102,10 +103,11 @@ if(!isset($_SESSION['auser']))
 								<?php
 								if (isset($_SESSION['auth_role']))
 					     		{?>
-						<li><a href="propertyadd.php"> Add Property</a></li>
-						<?php }?>
+						        <li><a href="propertyadd.php"> Add Property</a></li>
+						            <?php }?>
 									<li><a href="propertyview.php"> View Property </a></li>
-									
+									<li><a href="requestsview.php"> View Requests </a></li>
+
 								</ul>
 							</li>
 										
